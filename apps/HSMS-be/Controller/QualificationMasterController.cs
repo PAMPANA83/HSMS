@@ -17,7 +17,7 @@ namespace HSMS_be.Controller
         }
 
         [HttpPost("CreateQualificationMaster")]
-        public async Task<IActionResult> CreateQualificationMaster(Qualification dto)
+        public async Task<IActionResult> CreateQualificationMaster([FromBody]Qualification dto)
         {
             var res = await _Service.CreateQualificationMasterAsync(dto);
             if (!res.IsSuccess)
