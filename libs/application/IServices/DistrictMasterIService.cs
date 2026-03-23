@@ -13,5 +13,7 @@ namespace HSMS.Application.IServices
         Task<Result<string>> CreateDistrictMasterAysnc(Districtdto obj);
         Task<Result<List<DistrictMasterdto>>> GetAllDistrictMastersAysnc();
         Task<Result<string>> DeleteDistrictMasterAsync(int id);
+
+        Task<Result<List<DistrictMasterdto>>> GetAllDistrictMastersbyIDAysnc(int id);
     }
 }

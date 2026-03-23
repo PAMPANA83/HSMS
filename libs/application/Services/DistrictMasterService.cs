@@ -156,5 +156,69 @@ namespace HSMS.Application.Services
                 };
             }
         }
+
+        public async Task<Result<List<DistrictMasterdto>>> GetAllDistrictMastersbyIDAysnc(int id)
+        {
+            try
+            {
+                if (_cache.TryGetValue(CacheKeys.DistrictList, out List<DistrictMasterdto> list))
+                {
+                    return new Result<List<DistrictMasterdto>>
+                    {
+                        Data = list?.Where(x => x.StateID == id).ToList()
+                    };
+                }
+                var _dist = await _unitOfWork.district.GetAllDistrictMasterAsync();
+                if (!_dist.IsSuccess)
+                {
+                    return new Result<List<DistrictMasterdto>>
+                    {
+                        ErrorMessage = _dist.ErrorMessage
+                    };
+                }
+
+
+
+                var _stateres = await _unitOfWork.state.GetAllStateMasterAsync();
+                if (!_stateres.IsSuccess)
+                {
+                    return new Result<List<DistrictMasterdto>>
+                    {
+                        ErrorMessage = _stateres.ErrorMessage
+                    };
+                }
+
+                List<DistrictMasterdto> res = (from x in _dist.Data
+                                               join s in _stateres.Data on x.StateID equals s.ID
+                                               where x.StateID == id
+                                               select new DistrictMasterdto
+                                               {
+                                                   ID = x.ID,
+                                                   DistrictID = x.DistrictID,
+                                                   DistrictName = x.DistrictName,
+                                                   StateID = x.StateID,
+                                                   StateName = s.StateName,
+                                                   CREATEDATE = x.CREATEDATE,
+                                                   CREATETERMINALID = x.CREATETERMINALID,
+                                                   CREATEUSERID = x.CREATEUSERID,
+                                                   EDITDATE = x.EDITDATE,
+                                                   EDITTERMINALID = x.EDITTERMINALID,
+                                                   EDITUSERID = x.EDITUSERID,
+                                               }
+                                             ).ToList();
+
+                return new Result<List<DistrictMasterdto>>
+                {
+                    Data = res,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<DistrictMasterdto>>
+                {
+                    ErrorMessage = ex.Message,
+                };
+            }
+        }
     }
 }
