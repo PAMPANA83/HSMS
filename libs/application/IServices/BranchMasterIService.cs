@@ -13,5 +13,7 @@ namespace HSMS.Application.IServices
         Task<Result<string>> CreateBranchMasterAsync(BranchDto dto);
         Task<Result<string>> DeleteBranchMaster(int id);
         Task<Result<List<BranchMastersdto>>> GetAllBranchMasterAync();
+
+        Task<Result<List<BranchMastersdto>>> GetAllBranchMasterByIdAync(int Id);
     }
 }
