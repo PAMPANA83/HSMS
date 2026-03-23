@@ -14,6 +14,7 @@ namespace HSMS.contracts.Dto
         public int? CompanyCode { get; set; }
         public DateTime? InstallationDate { get; set; }
         public string? Address { get; set; }
+        public int? countryID { get; set; }
         public int? StateID { get; set; }
         public int? DistrictID { get; set; }
         public int? CityID { get; set; }

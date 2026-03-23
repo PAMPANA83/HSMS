@@ -17,8 +17,7 @@ namespace HSMS.infrastructure.Entities
         public string? AreaID { get; set; }
         public string? AreaName { get; set; }
         public int? AreaPINCode { get; set; }
-        public int? CityID { get; set; }
-        public string? BranchID { get; set; }
+        public int? CityID { get; set; }     
         public int? CREATEUSERID { get; set; }
         public DateTime? CREATEDATE { get; set; }
         public string? CREATETERMINALID { get; set; }
