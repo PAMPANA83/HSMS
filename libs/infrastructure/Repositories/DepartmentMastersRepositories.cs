@@ -167,6 +167,11 @@ namespace HSMS.infrastructure.Repositories
             }
         }
 
+        public Task<Result<List<DepartmentMasters>>> GetDepartmentMastersByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Result<bool>> UpdateDepartmentMasters(DepartmentMasters departmentMasters)
         {
             try

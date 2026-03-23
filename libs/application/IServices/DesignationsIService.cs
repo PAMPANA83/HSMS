@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSMS.Application.Services
+namespace HSMS.Application.IServices
 {
     
     public  interface DesignationsIService
@@ -14,5 +14,7 @@ namespace HSMS.Application.Services
         Task<Result<string>> CreateDesignationAsync(DesigDto dto);
         Task<Result<string>> DeleteDesignationAsync(int id);
         Task<Result<List<DesignationsDto>>> GetDesignationsAsync();
+
+        Task<Result<List<DesignationsDto>>> GetDesignationsByBranchIdAsync(int Id);
     }
 }

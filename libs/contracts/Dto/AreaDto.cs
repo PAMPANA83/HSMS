@@ -12,5 +12,7 @@ namespace HSMS.contracts.Dto
         public string? AreaName { get; set; }
         public int? AreaPINCode { get; set; }
         public int? CityID { get; set; }
+
+        public int? CREATEUSERID { get; set; }
     }
 }

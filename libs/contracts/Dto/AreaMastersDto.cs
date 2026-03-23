@@ -22,5 +22,6 @@ namespace HSMS.contracts.Dto
         public DateTime? EDITDATE { get; set; }
         public string? EDITTERMINALID { get; set; }
         public bool? Active { get; set; }
+
     }
 }

@@ -15,5 +15,6 @@ namespace HSMS.Application.IRepositories
         Task<Result<bool>> AddDepartmentMasters(DepartmentMasters departmentMasters);
         Task<Result<bool>> UpdateDepartmentMasters(DepartmentMasters departmentMasters);
         Task<Result<bool>> DeleteDepartmentMasters(int id);
+        Task<Result<List<DepartmentMasters>>> GetDepartmentMastersByIdAsync(int id);
     }
 }

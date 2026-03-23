@@ -49,9 +49,10 @@ builder.Services.AddSingleton<CityMasterIServices,CityMasterServices>();
 builder.Services.AddSingleton<AreaMasterIService,AreaMasterService>();
 builder.Services.AddSingleton<BranchMasterIService,BranchMasterService>();
 builder.Services.AddSingleton<CompanyMasterIService, CompanyMasterService>();
-builder.Services.AddSingleton<MainDepartmentIService,MainDepartmentService>();
 builder.Services.AddSingleton<MainDepartmentIService, MainDepartmentService>();
 builder.Services.AddSingleton<QualificationMastersIService,QualificationMastersService>();
+builder.Services.AddSingleton<DesignationsIService, DesignationsService>();
+
 #endregion
 builder.Services.AddSwaggerGen(c =>
 {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HSMS.Application.IServices;
 using HSMS.Application.UoW;
 using HSMS.contracts.Dto;
 using HSMS.Domain.Domains;
@@ -140,6 +141,75 @@ namespace HSMS.Application.Services
                     SlidingExpiration = TimeSpan.FromMinutes(3),
                     Priority = CacheItemPriority.High
                 });
+
+
+                return new Result<List<DesignationsDto>>
+                {
+                    Data = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<DesignationsDto>>
+                {
+                    ErrorMessage = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Result<List<DesignationsDto>>> GetDesignationsByBranchIdAsync(int Id)
+        {
+            try
+            {
+                if (_cache.TryGetValue(CacheKeys.DesignationList, out List<DesignationsDto> _desig))
+                {
+                    return new Result<List<DesignationsDto>>
+                    {
+                        Data = _desig?.Where(x=>x.BranchID==Id).ToList()
+                    };
+                }
+
+                var _designation = await _unitOfWork.designations.GetAllDesignations();
+                if (!_designation.IsSuccess)
+                {
+                    return new Result<List<DesignationsDto>>
+                    {
+                        ErrorMessage = _designation.ErrorMessage,
+                    };
+                }
+
+                var _branch = _designation.Data?.Select(x => x.BranchID).ToList();
+
+                var branch = await _unitOfWork.branch.GetAllBranchMastersAsync(_branch);
+                if (!branch.IsSuccess)
+                {
+                    return new Result<List<DesignationsDto>>
+                    {
+                        ErrorMessage = _designation.ErrorMessage,
+                    };
+                }
+
+                var result = new List<DesignationsDto>();
+
+                result = (from d in _designation.Data
+                          join b in branch.Data on d.BranchID equals b.ID
+                          where d.BranchID== Id
+                          select new DesignationsDto
+                          {
+                              ID = d.ID,
+                              DesigID = d.DesigID,
+                              DesignationName = d.DesignationName,
+                              BranchID = d.BranchID,
+                              BranchName = b.BranchName,
+                              CREATEDATE = d.CREATEDATE,
+                              CREATETERMINALID = d.CREATETERMINALID,
+                              CREATEUSERID = d.CREATEUSERID,
+                              EDITDATE = d.EDITDATE,
+                              EDITTERMINALID = d.EDITTERMINALID,
+                              EDITUSERID = d.EDITUSERID,
+                          }
+
+                        ).ToList();
 
 
                 return new Result<List<DesignationsDto>>

@@ -23,5 +23,7 @@ namespace HSMS.contracts.Dto
         public string? Mobile2 { get; set; }
         public string? Phone { get; set; }
         public string? ContactPerson { get; set; }
+
+        public int? CREATEUSERID { get; set; }
     }
 }
