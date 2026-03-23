@@ -50,5 +50,16 @@ namespace HSMS_be.Controller
 
             return Ok(res.Data);
         }
+
+        [HttpGet("GetAllDistrictbyID/{id}")]
+        public async Task<IActionResult> GetAllDistrictbyIDAsync(int id)
+        {
+            var res = await _service.GetAllDistrictMastersbyIDAysnc(id);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+            return Ok(res.Data);
+        }
     }
 }

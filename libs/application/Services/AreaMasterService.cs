@@ -152,5 +152,69 @@ namespace HSMS.Application.Services
                 };
             }
         }
+
+        public async Task<Result<List<AreaMastersDto>>> GetAreaMasterByIdAsync(int id)
+        {
+            try
+            {
+                if (_cache.TryGetValue(CacheKeys.AreaList, out List<AreaMastersDto> _res))
+                {
+                    return new Result<List<AreaMastersDto>>
+                    {
+                        Data = _res?.Where(x=>x.CityID==id).ToList()
+                    };
+                }
+
+                var _area = await _unitOfWork.area.GetAllAreaMasters();
+                if (!_area.IsSuccess)
+                {
+                    return new Result<List<AreaMastersDto>>
+                    {
+                        ErrorMessage = _area.ErrorMessage,
+                    };
+                }
+
+
+
+                var rescity = await _unitOfWork.city.GetAllCityMasters();
+                if (!rescity.IsSuccess)
+                {
+                    return new Result<List<AreaMastersDto>>
+                    { ErrorMessage = rescity.ErrorMessage, };
+                }
+
+                List<AreaMastersDto> result = (from a in _area.Data
+                                               join c in rescity.Data on a.CityID equals c.ID
+                                               where a.CityID== id  
+                                               select new AreaMastersDto
+                                               {
+                                                   ID = a.ID,
+                                                   Active = a.Active,
+                                                   AreaID = a.AreaID,
+                                                   AreaName = a.AreaName,
+                                                   AreaPINCode = a.AreaPINCode,
+                                                   CityID = a.CityID,
+                                                   CityName = c.CityName,
+                                                   CREATEDATE = a.CREATEDATE,
+                                                   CREATETERMINALID = a.CREATETERMINALID,
+                                                   CREATEUSERID = a.CREATEUSERID,
+                                                   EDITDATE = a.EDITDATE,
+                                                   EDITTERMINALID = a.EDITTERMINALID,
+                                                   EDITUSERID = a.EDITUSERID,
+                                               }).ToList();
+
+                return new Result<List<AreaMastersDto>>
+                {
+                    Data = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<AreaMastersDto>>
+                {
+                    ErrorMessage = ex.Message,
+                };
+            }
+        }
     }
 }

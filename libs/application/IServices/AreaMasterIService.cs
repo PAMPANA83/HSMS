@@ -15,5 +15,7 @@ namespace HSMS.Application.IServices
         Task<Result<List<AreaMastersDto>>> GetAllAreaMasterAsync();
 
         Task<Result<string>> DeleteAreaMasterAsync(int id);
+
+        Task<Result<List<AreaMastersDto>>> GetAreaMasterByIdAsync(int id);
     }
 }

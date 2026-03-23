@@ -52,5 +52,16 @@ namespace HSMS_be.Controller
             return Ok(res.Data);
         }
 
+
+        [HttpGet("CityMasterByDistId")]
+        public async Task<IActionResult> DeleteCityMasterbyIDAsync([FromBody] int Id)
+        {
+            var res = await _services.GetCityMasterByIdAync(Id);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+            return Ok(res.Data);
+        }
     }
 }

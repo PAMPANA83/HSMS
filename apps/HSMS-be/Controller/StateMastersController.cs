@@ -56,5 +56,17 @@ namespace HSMS_be.Controller
             }
             return Ok(res.Data);
         }
+
+
+        [HttpGet("GetStateId/{id}")]
+        public async Task<IActionResult> GetStateAsync(int id)
+        {
+            var res = await _stateMasterIService.GetAllStateMasterbyIdsAysnc(id);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(new { res.ErrorMessage });
+            }
+            return Ok(res.Data);
+        }
     }
 }

@@ -82,6 +82,71 @@ namespace HSMS.Application.Services
             }
         }
 
+        public async Task<Result<List<StateMasterDto>>> GetAllStateMasterbyIdsAysnc(int Id)
+        {
+            try
+            {
+                if (_cache.TryGetValue(CacheKeys.StateList, out List<StateMasterDto> cachedData))
+                {
+                    return new Result<List<StateMasterDto>>
+                    {
+                        Data = cachedData?.Where(x=>x.CountryID==Id).ToList(),
+                    };
+                }
+                var res = await _unitOfWork.state.GetAllStateMasterAsync();
+                if (!res.IsSuccess)
+                {
+                    return new Result<List<StateMasterDto>>
+                    {
+                        ErrorMessage = res.ErrorMessage,
+                    };
+                }
+                var states = res.Data;
+
+
+                var countryRes = await _unitOfWork.country.GetAllCountryMastersAsync();
+                if (!countryRes.IsSuccess)
+                {
+                    return new Result<List<StateMasterDto>>
+                    {
+                        ErrorMessage = countryRes.ErrorMessage,
+                    };
+                }
+                var country = countryRes.Data;
+
+                List<StateMasterDto> result = (from s in states
+                                               join c in country on s.CountryID equals c.Id
+                                               where s.CountryID == Id
+                                               select new StateMasterDto
+                                               {
+                                                   ID = s.ID ?? 0,
+                                                   stateID = s.stateID,
+                                                   StateName = s.StateName,
+                                                   StateCode = s.StateCode,
+                                                   CountryID = s.CountryID ?? 0,
+                                                   CountryName = c.CountryName ?? "Unknown",
+                                                   EDITDATE = s.EDITDATE,
+                                                   EDITTERMINALID = s.EDITTERMINALID,
+                                                   EDITUSERID = s.EDITUSERID,
+                                                   CREATEDATE = s.CREATEDATE,
+                                                   CREATETERMINALID = s.CREATETERMINALID,
+                                                   CREATEUSERID = s.CREATEUSERID
+                                               }).ToList();
+                return new Result<List<StateMasterDto>>
+                {
+
+                    Data = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<StateMasterDto>>
+                {
+                    ErrorMessage = ex.Message,
+                };
+            }
+        }
+
         public async Task<Result<List<StateMasterDto>>> GetAllStateMastersAysnc()
         {
             try

@@ -48,5 +48,16 @@ namespace HSMS_be.Controller
             }
             return Ok(res.Data);
         }
+
+        [HttpGet("GetAreabyId/{id}")]
+        public async Task<IActionResult> GetAreaMasterByIdAsync(int id)
+        {
+            var res = await _service.GetAreaMasterByIdAsync(id);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+            return Ok(res.Data);
+        }
     }
 }

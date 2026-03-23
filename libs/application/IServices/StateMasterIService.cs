@@ -14,5 +14,7 @@ namespace HSMS.Application.IServices
         Task<Result<List<StateMasterDto>>> GetAllStateMastersAysnc();
         Task<Result<string>> DeleteStateMasterAsync(int id);
 
+        Task<Result<List<StateMasterDto>>> GetAllStateMasterbyIdsAysnc(int Id);
+
     }
 }

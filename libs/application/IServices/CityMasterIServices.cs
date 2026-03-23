@@ -14,6 +14,6 @@ namespace HSMS.Application.IServices
         Task<Result<List<CityMastersDto>>> GetCityMasterAync();
         Task<Result<string>> DeleteCityMasterAync(int id);
 
-      
+        Task<Result<List<CityMastersDto>>> GetCityMasterByIdAync(int id);
     }
 }

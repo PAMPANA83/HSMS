@@ -155,5 +155,69 @@ namespace HSMS.Application.Services
                 };
             }
         }
+
+        public async Task<Result<List<CityMastersDto>>> GetCityMasterByIdAync(int id)
+        {
+            try
+            {
+                if (_cache.TryGetValue(CacheKeys.CityList, out List<CityMastersDto> citysdto))
+                {
+                    return new Result<List<CityMastersDto>>
+                    {
+                        Data = citysdto?.Where(x=>x.DistrictID==id).ToList()
+                    };
+                }
+                var _res = await _unitOfWork.city.GetAllCityMasters();
+                if (!_res.IsSuccess)
+                {
+                    return new Result<List<CityMastersDto>>
+                    {
+                        ErrorMessage = _res.ErrorMessage,
+                    };
+                }
+
+
+
+                var _resdist = await _unitOfWork.district.GetAllDistrictMasterAsync();
+                if (!_resdist.IsSuccess)
+                {
+                    return new Result<List<CityMastersDto>>
+                    {
+                        ErrorMessage = _resdist.ErrorMessage,
+                    };
+                }
+
+                List<CityMastersDto> result = (from c in _res.Data
+                                               join d in _resdist.Data on c.DistrictID equals d.ID
+                                               where c.DistrictID == id
+                                               select new CityMastersDto
+                                               {
+                                                   ID = c.ID,
+                                                   DistrictID = c.DistrictID,
+                                                   CityID = c.CityID,
+                                                   CityName = c.CityName,
+                                                   DistrictName = d.DistrictName,
+                                                   CREATEDATE = c.CREATEDATE,
+                                                   CREATETERMINALID = c.CREATETERMINALID,
+                                                   CREATEUSERID = c.CREATEUSERID,
+                                                   EDITDATE = c.EDITDATE,
+                                                   EDITTERMINALID = c.EDITTERMINALID,
+                                                   EDITUSERID = c.EDITUSERID
+                                               }
+                                              ).ToList();
+
+                return new Result<List<CityMastersDto>>
+                {
+                    Data = result,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<CityMastersDto>>
+                {
+                    ErrorMessage = ex.Message,
+                };
+            }
+        }
     }
 }
