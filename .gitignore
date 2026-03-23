@@ -52,3 +52,7 @@ test-output
 /.vs/HSMS/v17/DocumentLayout.backup.json
 /.vs/HSMS/v17/.suo
 /.vs/HSMS/v17/DocumentLayout.json
+*.user
+*.pubxml
+/apps/HSMS-be/HSMS-be.csproj.user
+/.vs/HSMS/DesignTimeBuild/.dtbcache.v2

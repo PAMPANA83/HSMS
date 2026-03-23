@@ -38,5 +38,27 @@ namespace HSMS_be.Controller
             }
             return Ok(res.Data);
         }
+
+        [HttpGet("GetALLDepartment")]
+        public async Task<IActionResult> GetDepartment()
+        {
+            var res = await _Service.GetDepartmentsAsync();
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+            return Ok(res.Data);
+        }
+
+        [HttpGet("GetDepartmentByMainID/{Mainid}")]
+        public async Task<IActionResult> GetDepartmentByBranchID(int Mainid)
+        {
+            var res = await _Service.GetDepartmentsByBranchIdAsync(Mainid);
+            if (!res.IsSuccess)
+            {
+                return BadRequest(res.ErrorMessage);
+            }
+            return Ok(res.Data);
+        }
     }
 }

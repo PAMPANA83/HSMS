@@ -71,15 +71,15 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();     // serve generated Swagger as JSON
     app.UseSwaggerUI(options =>  // Serves Swagger UI at /swagger
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Hospital API v1");
         options.RoutePrefix = "swagger";  // Access at /swagger
     });   // serve Swagger UI
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseRouting();
