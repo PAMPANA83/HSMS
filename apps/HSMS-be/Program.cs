@@ -53,6 +53,7 @@ builder.Services.AddSingleton<MainDepartmentIService, MainDepartmentService>();
 builder.Services.AddSingleton<QualificationMastersIService,QualificationMastersService>();
 builder.Services.AddSingleton<DesignationsIService, DesignationsService>();
 
+
 #endregion
 builder.Services.AddSwaggerGen(c =>
 {

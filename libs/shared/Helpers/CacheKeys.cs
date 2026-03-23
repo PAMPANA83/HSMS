@@ -18,5 +18,6 @@ namespace HSMS.shared.Helpers
         public const string MainDepartList = "MainDepart_list";
         public const string DesignationList = "Designation_list";
         public const string QualificationList = "Qualification_List";
+        public const string DepartmentList = "Department_List";
     }
 }
