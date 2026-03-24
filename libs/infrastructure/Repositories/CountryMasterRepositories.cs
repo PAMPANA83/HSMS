@@ -31,7 +31,7 @@ namespace HSMS.infrastructure.Repositories
                 var _res = await _dbBase.SaveChangesAsync();
                 var result = new CountryMasters(obj.ID, obj.CountryID, obj.CountryName, obj.CREATEUSERID,
                     obj.CREATEDATE, obj.CREATETERMINALID, obj.EDITUSERID, obj.EDITDATE, obj.EDITTERMINALID);
-                _dbBase.Dispose();
+                
                 return new Result<CountryMasters>
                 {
                     Data = result,

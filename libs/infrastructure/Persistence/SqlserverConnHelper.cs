@@ -15,7 +15,7 @@ namespace HSMS.infrastructure.Persistence
         public ApplicationDbContext CreateDbContext()
         {
             var connsql = _configs.Config();
-            string connString = $"Server={connsql.server};Database={connsql.database};User Id={connsql.userID};Password={connsql.password};Trusted_Connection=true;MultipleActiveResultSets=True;TrustServerCertificate=True;";
+            string connString = $"Server={connsql.server};Database={connsql.database};User Id={connsql.userID};Password={connsql.password};Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;";
             // Create DbContext options
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(connString);

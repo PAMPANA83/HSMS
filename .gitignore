@@ -56,3 +56,11 @@ test-output
 *.pubxml
 /apps/HSMS-be/HSMS-be.csproj.user
 /.vs/HSMS/DesignTimeBuild/.dtbcache.v2
+*.db
+*.json
+*.wsuo
+*.sqlite
+/.vs/HSMS/CopilotIndices/17.14.939.21063/CodeChunks.db-shm
+/.vs/HSMS/CopilotIndices/17.14.939.21063/SemanticSymbols.db-shm
+/.vs/HSMS/v17/.futdcache.v2
+*.bin
