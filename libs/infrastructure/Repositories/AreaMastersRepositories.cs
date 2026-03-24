@@ -33,6 +33,7 @@ namespace HSMS.infrastructure.Repositories
                 obj.CREATEUSERID = areaMaster.CREATEUSERID;
                 obj.CREATEDATE = areaMaster.CREATEDATE;
                 obj.CREATETERMINALID = areaMaster.CREATETERMINALID;
+                obj.Active = areaMaster.Active;
                 await _dbBase.AreaMaster.AddAsync(obj);
                 var _res = await _dbBase.SaveChangesAsync();
                 if(_res > 0)

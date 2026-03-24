@@ -6,6 +6,7 @@ export interface CompanyMastersDto {
   companyCode?: number;          // int? CompanyCode
   installationDate?: string;     // DateTime? → ISO string
   address?: string;              // string? Address
+  countryID?:number;
   stateID?: number;              // int? StateID
   districtID?: number;           // int? DistrictID
   cityID?: number;               // int? CityID

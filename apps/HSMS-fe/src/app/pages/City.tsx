@@ -108,15 +108,15 @@ export function City() {
           columns={[
             { title: "City", dataIndex: "cityName" },
             { title: "City ID", dataIndex: "cityID" },
-            { title: "District NAME", dataIndex: "distristName" },
+            { title: "District NAME", dataIndex: "districtName" },
             { 
               title: "Created", 
-              dataIndex: "createDate", 
+              dataIndex: "createdate", 
               render: (date: string) => date ? new Date(date).toLocaleDateString() : '-' 
             },
             { 
               title: "Edited", 
-              dataIndex: "editDate", 
+              dataIndex: "editdate", 
               render: (date: string) => date ? new Date(date).toLocaleDateString() : '-' 
             },
             {
@@ -148,6 +148,14 @@ export function City() {
         footer={null}
       >
         <Form<CreateCityDto> form={form} layout="vertical" onFinish={handleCreate}>
+
+        <Form.Item
+            label="City ID"
+            name="cityID"
+            rules={[{ required: true, message: "Enter city ID" }]}
+          >
+            <Input placeholder="e.g. Bengaluru" />
+          </Form.Item>
           <Form.Item
             label="City Name"
             name="cityName"

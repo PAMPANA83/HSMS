@@ -40,6 +40,6 @@ export const updateDistrict = async (data: UpdateDistrictDto) => {
 
 
 export const getDistrictsByState = async (id: number) => {
-  const response = await apiClient.delete(`/DistrictMaster/${id}`);
+  const response = await apiClient.get(`/DistrictMaster/GetAllDistrictbyID/${id}`);
   return response.data;
 };

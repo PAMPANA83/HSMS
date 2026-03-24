@@ -39,3 +39,10 @@ export const updateCountry = async (data: CreateStateMasters) => {
   return response.data;
 };
 
+
+
+
+export const GetStatebycountryID = async (id: number) => {
+  const response = await apiClient.get(`/StateMasters/GetStateId/${id}`);
+  return response.data;
+};

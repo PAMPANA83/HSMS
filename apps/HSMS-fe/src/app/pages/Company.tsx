@@ -4,10 +4,11 @@ import { CompanyMastersDto, CreateCompanyDto } from "../models/Company.dto";
 import { DeleteOutlined } from "@ant-design/icons";
 import{getCompany,createCompany} from "../services/Company.service";
 import{getAllArea} from "../services/Area.service";
-import{getState} from "../services/State.service";
+import{GetStatebycountryID} from "../services/State.service";
 import{getDistrictsByState} from "../services/District.service";
 import{getCitiesByDistrict} from "../services/City.service";
 import{getAreasByCity} from "../services/Area.service";
+import{getCountries} from "../services/country.service";
 
 export function Company() {
   const [data, setData] = useState<CompanyMastersDto[]>([]);
@@ -18,7 +19,7 @@ export function Company() {
   const [districts, setDistricts] = useState<{ id: number; districtName: string }[]>([]);
   const [cities, setCities] = useState<{ id: number; cityName: string }[]>([]);
   const [areas, setAreas] = useState<{ id: number; areaName: string }[]>([]);
-
+ const [countries, setCountries] = useState<{ id: number; countryName: string }[]>([]);
   const loadCompanies = async () => {
     setLoading(true);
     try {
@@ -32,9 +33,18 @@ export function Company() {
     setLoading(false);
   };
 
-    const loadStates = async () => {
+     const loadCountry = async () => {
     try {
-      const result = await getState();
+      const result = await getCountries();
+      setCountries(result);
+    } catch {
+      message.error("Failed to load states");
+    }
+  };
+
+    const loadStates = async (Countryid:number) => {
+    try {
+      const result = await GetStatebycountryID(Countryid);
       setStates(result);
     } catch {
       message.error("Failed to load states");
@@ -94,7 +104,7 @@ export function Company() {
   };
 
   useEffect(() => {
-    loadStates();
+    loadCountry();
     loadAreas();
     loadCompanies();
   }, []);
@@ -225,10 +235,26 @@ export function Company() {
         
       </div>
     </div>
+<div style={{ display: 'flex', gap: 16 }}>
 
-    {/* Row 3: City + Area */}
-    <div style={{ display: 'flex', gap: 16 }}>
-      <div style={{ flex: 1 }}>
+    <div style={{ flex: 1 }}>
+    <Form.Item label="Country" name="countryID" rules={[{ required: true }]}>
+      <Select
+        placeholder="Select country"
+        onChange={(value) => {
+          loadStates(value); // 🔥 load states based on country
+        }}
+      >
+        {countries.map(country => (
+          <Select.Option key={country.id} value={country.id}>
+            {country.countryName}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  </div>
+
+   <div style={{ flex: 1 }}>
         <Form.Item label="State" name="stateID" rules={[{ required: true }]}>
           <Select 
             placeholder="Select state" 
@@ -245,6 +271,10 @@ export function Company() {
 
        
       </div>
+</div>
+    {/* Row 3: City + Area */}
+    <div style={{ display: 'flex', gap: 16 }}>
+     
 
       <div style={{ flex: 1 }}>
 
@@ -264,12 +294,7 @@ export function Company() {
         </Form.Item>
        
       </div>
-    </div>
-
-
-
-    <div style={{ display: 'flex', gap: 16 }}>
-      <div style={{ flex: 1 }}>
+       <div style={{ flex: 1 }}>
          <Form.Item label="City" name="cityID" rules={[{ required: true }]}>
           <Select 
             placeholder="Select city" 
@@ -286,8 +311,7 @@ export function Company() {
         </Form.Item>
        
       </div>
-
-      <div style={{ flex: 1 }}>
+       <div style={{ flex: 1 }}>
 
          <Form.Item label="Area" name="areaID" rules={[{ required: true }]}>
           <Select placeholder="Select area" disabled={!areas.length} loading={loading}>
@@ -299,6 +323,8 @@ export function Company() {
        
       </div>
     </div>
+
+
 
     {/* Address & Contacts (same as before) */}
     <Form.Item label="Address" name="address" rules={[{ required: true }]}>

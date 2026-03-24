@@ -30,7 +30,7 @@ namespace HSMS.Application.Services
             try
             {
                var res=new AreaMasters(null,dto.AreaID, dto.AreaName,dto.AreaPINCode,dto.CityID,1,
-                   DateTimeHelper.Now(), GetIPAddress.GetLocalIpAddress(), null, null, null,true);
+                   DateTimeHelper.Now(), GetIPAddress.GetLocalIpAddress(), null, null, null,dto.active);
 
                 var _area=await _unitOfWork.area.AddAreaMaster(res);
                 if(!_area.IsSuccess)

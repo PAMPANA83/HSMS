@@ -34,7 +34,7 @@ namespace HSMS.infrastructure.Repositories
                 objs.CREATETERMINALID = cityMaster.CREATETERMINALID;
                 await _dbBase.CityMaster.AddAsync(objs);
                 var _res = await _dbBase.SaveChangesAsync();
-                _dbBase.Dispose();
+               
                 if(_res > 0)
                 {
                     return new Result<bool>

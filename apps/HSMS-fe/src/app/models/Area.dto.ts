@@ -5,7 +5,6 @@ export interface AreaMastersDto {
   areaPINCode?: number;          // int? AreaPINCode
   cityID?: number;               // string? CityID
   cityName?: string;  
-  branchID?: number;             // string? BranchID
   districtName?: string;  
   createUserId?: number;         // int? CREATEUSERID
   createdate?: string;           // DateTime? → ISO string
@@ -22,7 +21,6 @@ export interface CreateAreaDto {
   areaName: string;
   areaPINCode: number;
   cityID: string;
-  branchID?: string;
   active?: boolean;
 }
 

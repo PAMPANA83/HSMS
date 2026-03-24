@@ -67,7 +67,7 @@ export function District() {
       try {
         // TODO: Add deleteDistrict service call
         const res = await deleteDistrict(id);
-        if(res.status=200)
+        if(res!=null)
         console.log("Delete response for ID:", id);
         message.success("District deleted successfully");
         loadDistricts();
@@ -148,10 +148,18 @@ export function District() {
         footer={null}
       >
         <Form<CreateDistrictDto> form={form} layout="vertical" onFinish={handleCreate}>
+
+            <Form.Item
+            label="District ID"
+            name="districtID"
+            rules={[{ required: true, message: "Enter district ID" }]}
+          >
+            <Input placeholder="e.g. Bengaluru Urban" />
+          </Form.Item>
           <Form.Item
             label="District Name"
             name="districtName"
-            rules={[{ required: true, message: "Enter district name" }]}
+            rules={[{ required: true, message: "Enter district NAME" }]}
           >
             <Input placeholder="e.g. Bengaluru Urban" />
           </Form.Item>

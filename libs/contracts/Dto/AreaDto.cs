@@ -13,6 +13,7 @@ namespace HSMS.contracts.Dto
         public int? AreaPINCode { get; set; }
         public int? CityID { get; set; }
 
+        public Boolean? active { get; set; }
         public int? CREATEUSERID { get; set; }
     }
 }

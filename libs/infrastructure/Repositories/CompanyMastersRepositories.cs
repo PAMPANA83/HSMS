@@ -120,7 +120,7 @@ namespace HSMS.infrastructure.Repositories
                 {
                     res = _res.Select(x => new CompanyMasters(x.ID, x.CompanyID, x.CompanyName, x.CompanyCode, x.InstallationDate,
                         x.Address, x.StateID, x.DistrictID, x.CityID, x.AreaID, x.Mobile1, x.Mobile2, x.Phone, x.ContactPerson, x.CREATEUSERID,
-                        x.CREATEDATE, x.CREATETERMINALID, x.EDITUSERID, x.EDITDATE, x.EDITTERMINALID,x.countryID)).ToList();
+                        x.CREATEDATE, x.CREATETERMINALID, x.EDITUSERID, x.EDITDATE, x.EDITTERMINALID,x.CountryID)).ToList();
                 }
                 return new Result<List<CompanyMasters>>
                 {
@@ -146,7 +146,7 @@ namespace HSMS.infrastructure.Repositories
                 {
                     res = _res.Select(x => new CompanyMasters(x.ID, x.CompanyID, x.CompanyName, x.CompanyCode, x.InstallationDate,
                         x.Address, x.StateID, x.DistrictID, x.CityID, x.AreaID, x.Mobile1, x.Mobile2, x.Phone, x.ContactPerson, x.CREATEUSERID,
-                        x.CREATEDATE, x.CREATETERMINALID, x.EDITUSERID, x.EDITDATE, x.EDITTERMINALID,x.countryID)).ToList();
+                        x.CREATEDATE, x.CREATETERMINALID, x.EDITUSERID, x.EDITDATE, x.EDITTERMINALID,x.CountryID)).ToList();
                 }
                 return new Result<List<CompanyMasters>>
                 {
@@ -172,7 +172,7 @@ namespace HSMS.infrastructure.Repositories
                     var _res = new CompanyMasters(res.ID, res.CompanyID, res.CompanyName, res.CompanyCode, res.InstallationDate,
                         res.Address, res.StateID, res.DistrictID, res.CityID, res.AreaID, res.Mobile1, res.Mobile2, res.Phone,
                         res.ContactPerson, res.CREATEUSERID, res.CREATEDATE, res.CREATETERMINALID, res.EDITUSERID, res.EDITDATE,
-                        res.EDITTERMINALID,res.countryID);
+                        res.EDITTERMINALID,res.CountryID);
                     return new Result<CompanyMasters>
                     {
                         Data = _res,

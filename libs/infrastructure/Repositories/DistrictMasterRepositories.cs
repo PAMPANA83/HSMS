@@ -26,7 +26,7 @@ namespace HSMS.infrastructure.Repositories
             try
             {
                 var obj = new DistrictMaster();               
-                obj.StateID = (int)dto.StateID;
+                obj.StateID = dto.StateID;
                 obj.DistrictID = dto.DistrictID;
                 obj.DistrictName = dto.DistrictName ?? string.Empty;
                 obj.CREATEDATE = dto.CREATEDATE;
@@ -34,7 +34,7 @@ namespace HSMS.infrastructure.Repositories
                 obj.CREATEUSERID = dto.CREATEUSERID;
                 await _dbBase.DistrictMaster.AddAsync(obj);
                 var _res = await _dbBase.SaveChangesAsync();
-                _dbBase.Dispose();
+                
                 if (_res > 0)
                 {
                     return new Result<bool>
@@ -103,7 +103,7 @@ namespace HSMS.infrastructure.Repositories
             try
             {
                 List<DistrictMasters> lists = new List<DistrictMasters>();
-                var _res = await _dbBase.DistrictMaster.AsNoTracking().ToListAsync();
+                var _res = await _dbBase.DistrictMaster.ToListAsync();
                 if(_res != null && _res.Count > 0)
                 {
                     lists = _res.Select(x => new DistrictMasters
